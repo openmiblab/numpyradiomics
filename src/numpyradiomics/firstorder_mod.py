@@ -2,7 +2,7 @@ import numpy as np
 from scipy.stats import skew, kurtosis
 
 
-def first_order_features(input_image, input_mask, voxelVolume=1, binWidth=25, voxelArrayShift=0):
+def firstorder(input_image, input_mask, voxelVolume=1, binWidth=25, voxelArrayShift=0):
     """
     Compute first-order (intensity-based) statistics for a given image and mask,
     replicating Pyradiomics first-order features.
@@ -105,4 +105,42 @@ def first_order_features(input_image, input_mask, voxelVolume=1, binWidth=25, vo
         "CoefficientOfVariation": coefficient_of_variation,
         "Heterogeneity": heterogeneity,
     }
+
+
+def firstorder_units(unit, voxelVolume=''):
+
+    unit_sq = '' if unit=='' else f"{unit}^2"
+    if voxelVolume=='':
+        unit_sq_vol = unit_sq
+    elif unit=='':
+        unit_sq_vol = voxelVolume
+    else:
+        unit_sq_vol = f"{unit_sq}*{voxelVolume}"
+
+    return {
+        "Energy": unit_sq,
+        "TotalEnergy": unit_sq_vol,
+        "Entropy": '',
+        "Minimum": unit,
+        "Maximum": unit,
+        "05Percentile": unit,
+        "10Percentile": unit,
+        "90Percentile": unit,
+        "95Percentile": unit,
+        "Mean": unit,
+        "Median": unit,
+        "InterquartileRange": unit,
+        "Range": unit,
+        "MeanAbsoluteDeviation": unit,
+        "RobustMeanAbsoluteDeviation": unit,
+        "RootMeanSquared": unit,
+        "StandardDeviation": unit,
+        "Skewness": '',
+        "Kurtosis": '',
+        "Variance": unit_sq,
+        "Uniformity": '',
+        "CoefficientOfVariation": '',
+        "Heterogeneity": '',
+    }
+
 

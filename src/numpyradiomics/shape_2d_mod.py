@@ -2,7 +2,7 @@ import numpy as np
 from skimage.measure import regionprops, label, perimeter
 from skimage.morphology import convex_hull_image
 
-def shape_features_2d(input_mask, pixel_spacing=(1.0, 1.0)):
+def shape_2d(input_mask, spacing=(1.0, 1.0)):
     """
     Compute 2D shape features for a binary mask (similar to Pyradiomics shape_2D).
 
@@ -35,7 +35,7 @@ def shape_features_2d(input_mask, pixel_spacing=(1.0, 1.0)):
 
     # Label connected components
     lbl = label(mask)
-    props = regionprops(lbl, spacing=pixel_spacing)
+    props = regionprops(lbl, spacing=spacing)
 
     # Use largest region if multiple
     region = max(props, key=lambda r: r.area)

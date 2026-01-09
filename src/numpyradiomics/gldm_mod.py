@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.ndimage import label
 
-def gldm_features(input_image, input_mask, binWidth=25, levels=None, distance=1, connectivity=None):
+def gldm(input_image, input_mask, binWidth=25, levels=None, distance=1, connectivity=None):
     """
     Compute 14 Pyradiomics-style GLDM features for 2D or 3D images.
 

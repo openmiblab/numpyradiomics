@@ -2,7 +2,7 @@ import numpy as np
 from scipy.ndimage import convolve
 
 
-def ngtdm_features(input_image, input_mask, binWidth=25, levels=None, distance=1):
+def ngtdm(input_image, input_mask, binWidth=25, levels=None, distance=1):
     """
     Compute Pyradiomics-style NGTDM (Neighborhood Gray Tone Difference Matrix) features for a 3D image.
 

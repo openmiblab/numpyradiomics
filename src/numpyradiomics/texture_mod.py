@@ -1,14 +1,14 @@
 
 # Import the vectorized feature functions you defined previously
-from numpyradiomics.first_order import first_order_features
-from numpyradiomics.glcm import glcm_features
-from numpyradiomics.glszm import glszm_features
-from numpyradiomics.glrlm import glrlm_features
-from numpyradiomics.ngtdm import ngtdm_features
-from numpyradiomics.gldm import gldm_features
+from numpyradiomics.firstorder_mod import firstorder
+from numpyradiomics.glcm_mod import glcm
+from numpyradiomics.glszm_mod import glszm
+from numpyradiomics.glrlm_mod import glrlm
+from numpyradiomics.ngtdm_mod import ngtdm
+from numpyradiomics.gldm_mod import gldm
 
 
-def texture_features(input_image, input_mask,
+def texture(input_image, input_mask,
                      binWidth=1.0, glcm_distance=1, glcm_angles=None,
                      gldm_distance=1, ngtdm_distance=1,
                      connectivity=None, voxelVolume=1, voxelArrayShift=0):
@@ -59,34 +59,34 @@ def texture_features(input_image, input_mask,
         connectivity = 8 if dims == 2 else 26
 
     # ---------------- FIRST-ORDER ---------------- #
-    first_order_dict = first_order_features(input_image, input_mask,
+    first_order_dict = firstorder(input_image, input_mask,
                                    voxelVolume=voxelVolume,
                                    binWidth=binWidth,
                                    voxelArrayShift=voxelArrayShift)
 
     # ---------------- GLCM ---------------- #
-    glcm_dict = glcm_features(input_image, input_mask,
+    glcm_dict = glcm(input_image, input_mask,
                               binWidth=binWidth,
                               distances=[glcm_distance],
                               symmetric=True,
                               normalized=True)
 
     # ---------------- GLSZM ---------------- #
-    glszm_dict = glszm_features(input_image, input_mask,
+    glszm_dict = glszm(input_image, input_mask,
                                 binWidth=binWidth,
                                 connectivity=connectivity)
 
     # ---------------- GLRLM ---------------- #
-    glrlm_dict = glrlm_features(input_image, input_mask,
+    glrlm_dict = glrlm(input_image, input_mask,
                                 binWidth=binWidth,
                                 connectivity=connectivity)
 
     # ---------------- NGTDM ---------------- #
-    ngtdm_dict = ngtdm_features(input_image, input_mask,
+    ngtdm_dict = ngtdm(input_image, input_mask,
                                 distance=ngtdm_distance)
 
     # ---------------- GLDM ---------------- #
-    gldm_dict = gldm_features(input_image, input_mask,
+    gldm_dict = gldm(input_image, input_mask,
                               binWidth=binWidth,
                               distance=gldm_distance,
                               connectivity=connectivity)

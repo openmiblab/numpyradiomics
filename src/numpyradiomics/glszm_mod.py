@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.ndimage import label
 
-def glszm_features(img, mask, binWidth=25, levels=None, connectivity=None):
+def glszm(img, mask, binWidth=25, levels=None, connectivity=None):
     roi_mask = mask > 0
     if not np.any(roi_mask):
         raise ValueError("Mask contains no voxels.")

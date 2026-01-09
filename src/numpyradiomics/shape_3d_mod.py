@@ -5,7 +5,7 @@ from skimage import measure
 from scipy.spatial import ConvexHull, distance_matrix
 
 
-def shape_features_3d(input_mask, voxel_spacing):
+def shape_3d(input_mask, spacing=(1.0, 1.0)):
     r"""
     Returns the shape features of the pyradiomics package
     """
@@ -18,7 +18,7 @@ def shape_features_3d(input_mask, voxel_spacing):
     mask = np.pad(input_mask, pad_width=3, mode='constant', constant_values=0)
     
     # Extract surface mesh using marching cubes
-    verts, faces, normals, _ = measure.marching_cubes(mask, spacing=voxel_spacing)
+    verts, faces, normals, _ = measure.marching_cubes(mask, spacing=spacing)
     
     # Compute Surface Area
     def mesh_surface_area(vertices, faces):
@@ -70,7 +70,7 @@ def shape_features_3d(input_mask, voxel_spacing):
     eigenvalues = eigenvalues[idx]
 
     # Compute derived parameters
-    voxel_volume = np.sum(input_mask != 0) * np.prod(voxel_spacing)
+    voxel_volume = np.sum(input_mask != 0) * np.prod(spacing)
     surface_volume_ratio = surface_area / volume
     sphericity = (36 * np.pi * volume**2) ** (1.0 / 3.0) / surface_area
     major_axis_length = np.nan if eigenvalues[2] < 0 else np.sqrt(eigenvalues[2]) * 4

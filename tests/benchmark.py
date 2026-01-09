@@ -3,10 +3,10 @@ import numpy as np
 import SimpleITK as sitk
 
 # Pyradiomics imports
-from radiomics import firstorder, glcm, glszm, glrlm, gldm, ngtdm, shape
+import radiomics
 
 # Custom implementations
-from numpyradiomics import first_order_features, glcm_features, glszm_features, glrlm_features, gldm_features, ngtdm_features, shape_features_3d, shape_features_2d
+from numpyradiomics import firstorder, glcm, glszm, glrlm, gldm, ngtdm, shape
 
 # Tolerance for numerical comparison
 RTOL = 1e-5
@@ -27,14 +27,14 @@ def test_first_order_features():
     }
 
     # PyRadiomics
-    result_py = firstorder.RadiomicsFirstOrder(
+    result_py = radiomics.firstorder.RadiomicsFirstOrder(
         itk_img,
         itk_mask,
         **settings
     ).execute()
 
     # Custom
-    result_custom = first_order_features(
+    result_custom = firstorder(
         img,
         mask,
         **settings
@@ -56,8 +56,8 @@ def test_glcm_features():
     itk_img = sitk.GetImageFromArray(img.astype(np.float64))
     itk_mask = sitk.GetImageFromArray(mask.astype(np.uint8))
     
-    result_py = glcm.RadiomicsGLCM(itk_img, itk_mask).execute()
-    result_custom = glcm_features(img, mask)
+    result_py = radiomics.glcm.RadiomicsGLCM(itk_img, itk_mask).execute()
+    result_custom = glcm(img, mask)
     
     for key in result_py:
         assert np.isclose(result_py[key], result_custom[key], rtol=RTOL), f"Mismatch in {key}"
@@ -70,8 +70,8 @@ def test_glszm_features():
     itk_img = sitk.GetImageFromArray(img.astype(np.float64))
     itk_mask = sitk.GetImageFromArray(mask.astype(np.uint8))
 
-    result_py = glszm.RadiomicsGLSZM(itk_img, itk_mask).execute()
-    result_custom = glszm_features(img, mask)
+    result_py = radiomics.glszm.RadiomicsGLSZM(itk_img, itk_mask).execute()
+    result_custom = glszm(img, mask)
 
     for key in result_py:
         assert np.isclose(result_py[key], result_custom[key], rtol=1e-6), f"Mismatch in {key}"
@@ -85,8 +85,8 @@ def test_glrlm_features():
     itk_img = sitk.GetImageFromArray(img.astype(np.float64))
     itk_mask = sitk.GetImageFromArray(mask.astype(np.uint8))
     
-    result_py = glrlm.RadiomicsGLRLM(itk_img, itk_mask).execute()
-    result_custom = glrlm_features(img, mask, binWidth=1)
+    result_py = radiomics.glrlm.RadiomicsGLRLM(itk_img, itk_mask).execute()
+    result_custom = glrlm(img, mask, binWidth=1)
     
     for key in result_py:
         assert np.isclose(result_py[key], result_custom[key], rtol=RTOL), f"Mismatch in {key}"
@@ -99,8 +99,8 @@ def test_gldm_features():
     itk_img = sitk.GetImageFromArray(img.astype(np.float64))
     itk_mask = sitk.GetImageFromArray(mask.astype(np.uint8))
     
-    result_py = gldm.RadiomicsGLDM(itk_img, itk_mask).execute()
-    result_custom = gldm_features(img, mask, binWidth=1)
+    result_py = radiomics.gldm.RadiomicsGLDM(itk_img, itk_mask).execute()
+    result_custom = gldm(img, mask, binWidth=1)
     
     for key in result_py:
         assert np.isclose(result_py[key], result_custom[key], rtol=RTOL), f"Mismatch in {key}"
@@ -113,8 +113,8 @@ def test_ngtdm_features():
     itk_img = sitk.GetImageFromArray(img.astype(np.float64))
     itk_mask = sitk.GetImageFromArray(mask.astype(np.uint8))
     
-    result_py = ngtdm.RadiomicsNGTDM(itk_img, itk_mask).execute()
-    result_custom = ngtdm_features(img, mask, binWidth=1)
+    result_py = radiomics.ngtdm.RadiomicsNGTDM(itk_img, itk_mask).execute()
+    result_custom = ngtdm(img, mask, binWidth=1)
     
     for key in result_py:
         assert np.isclose(result_py[key], result_custom[key], rtol=RTOL), f"Mismatch in {key}"
@@ -126,8 +126,8 @@ def test_shape_features_2d():
     mask[2:8, 3:7] = 1
     
     itk_mask = sitk.GetImageFromArray(mask.astype(np.uint8))
-    result_py = shape.RadiomicsShape2D(itk_mask).execute()
-    result_custom = shape_features_2d(mask)
+    result_py = radiomics.shape.RadiomicsShape2D(itk_mask).execute()
+    result_custom = shape(mask)
     
     for key in result_custom:
         assert np.isclose(result_py[key], result_custom[key], rtol=RTOL), f"Mismatch in {key}"
@@ -140,8 +140,8 @@ def test_shape_features_3d():
     itk_mask = sitk.GetImageFromArray(mask.astype(np.uint8))
     voxel_spacing = (1.0, 1.0, 1.0)
     
-    result_py = shape.RadiomicsShape3D(itk_mask).execute()
-    result_custom = shape_features_3d(mask, voxel_spacing)
+    result_py = radiomics.shape.RadiomicsShape3D(itk_mask).execute()
+    result_custom = shape(mask, voxel_spacing)
     
     for key in result_custom:
         assert np.isclose(result_py[key], result_custom[key], rtol=RTOL), f"Mismatch in {key}"
@@ -153,6 +153,6 @@ if __name__=='__main__':
     # test_ngtdm_features()
     # test_gldm_features()
     # test_glrlm_features()
-    test_glszm_features()
+    # test_glszm_features()
     # test_glcm_features()
-    # test_first_order_features()
+    test_first_order_features()

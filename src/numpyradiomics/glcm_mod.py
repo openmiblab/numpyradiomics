@@ -1,6 +1,6 @@
 import numpy as np
 
-def glcm_features(img, mask, binWidth=25, distances=[[1]], symmetricalGLCM=True, weightingNorm=None):
+def glcm(img, mask, binWidth=25, distances=[[1]], symmetricalGLCM=True, weightingNorm=None):
     """
     Custom PyRadiomics-compatible GLCM computation with distances, symmetry, and weighting options.
 

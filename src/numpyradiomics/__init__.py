@@ -1,9 +1,8 @@
-from numpyradiomics.shape_2d import shape_features_2d
-from numpyradiomics.shape_3d import shape_features_3d
-from numpyradiomics.first_order import first_order_features
-from numpyradiomics.glcm import glcm_features
-from numpyradiomics.glszm import glszm_features
-from numpyradiomics.glrlm import glrlm_features
-from numpyradiomics.ngtdm import ngtdm_features
-from numpyradiomics.gldm import gldm_features
-from numpyradiomics.texture import texture_features
+from numpyradiomics.shape_mod import shape
+from numpyradiomics.firstorder_mod import firstorder, firstorder_units
+from numpyradiomics.glcm_mod import glcm
+from numpyradiomics.glszm_mod import glszm
+from numpyradiomics.glrlm_mod import glrlm
+from numpyradiomics.ngtdm_mod import ngtdm
+from numpyradiomics.gldm_mod import gldm
+from numpyradiomics.texture_mod import texture

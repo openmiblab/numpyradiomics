@@ -1,6 +1,6 @@
 import numpy as np
 
-def glrlm_features(input_image, input_mask, binWidth=25, levels=None):
+def glrlm(input_image, input_mask, binWidth=25, levels=None):
     """
     Fully vectorized 2D/3D GLRLM computation with 16 Pyradiomics features.
 
