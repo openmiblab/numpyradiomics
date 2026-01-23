@@ -5,9 +5,12 @@ from skimage import measure
 from scipy.spatial import ConvexHull, distance_matrix
 
 
-def shape_3d(input_mask, spacing=(1.0, 1.0)):
+def shape_3d(input_mask, spacing=(1.0, 1.0, 1.0)):
     r"""
     Returns the shape features of the pyradiomics package
+
+    Args:
+        spacing (tuple): x, y and 
     """
 
     assert (
@@ -107,19 +110,37 @@ def shape_3d(input_mask, spacing=(1.0, 1.0)):
 
     # Build return values
     return {
-        "SurfaceArea": surface_area,
-        "MeshVolume": volume,
-        "Maximum2DDiameterSlice": max_2D_slice,
-        "Maximum2DDiameterColumn": max_2D_column,
-        "Maximum2DDiameterRow": max_2D_row,
-        "Maximum3DDiameter": max_3D_diameter,
-        "VoxelVolume": voxel_volume,
-        "SurfaceVolumeRatio": surface_volume_ratio,
-        "Sphericity": sphericity,
-        "MajorAxisLength": major_axis_length,
-        "MinorAxisLength": minor_axis_length,
-        "LeastAxisLength": least_axis_length,
-        "Elongation": elongation,
-        "Flatness": flatness,
+        "SurfaceArea": 0.01 * surface_area,
+        "MeshVolume": 0.001 * volume,
+        "Maximum2DDiameterSlice": 0.1 * max_2D_slice,
+        "Maximum2DDiameterColumn": 0.1 * max_2D_column,
+        "Maximum2DDiameterRow": 0.1 * max_2D_row,
+        "Maximum3DDiameter": 0.1 * max_3D_diameter,
+        "VoxelVolume": 0.001 * voxel_volume,
+        "SurfaceVolumeRatio": 10 * surface_volume_ratio, # SurfaceArea / MeshVolume
+        "Sphericity": 100 * sphericity,
+        "MajorAxisLength": 0.1 * major_axis_length,
+        "MinorAxisLength": 0.1 * minor_axis_length,
+        "LeastAxisLength": 0.1 * least_axis_length,
+        "Elongation": 100* elongation,
+        "Flatness": 100 * flatness,
     }
+
     
+
+shape_3d_units = {
+    "Elongation": "%",                 # ratio of axes
+    "Flatness": "%",                   # ratio of axes
+    "LeastAxisLength": "cm",                       # shortest principal axis
+    "MajorAxisLength": "cm",                       # longest principal axis
+    "Maximum2DDiameterColumn": "cm",               # max 2D distance in column direction
+    "Maximum2DDiameterRow": "cm",                  # max 2D distance in row direction
+    "Maximum2DDiameterSlice": "cm",                # max 2D distance in slice direction
+    "Maximum3DDiameter": "cm",                     # max 3D distance
+    "MeshVolume": "mL",                          # volume of mesh
+    "MinorAxisLength": "cm",                       # intermediate principal axis
+    "Sphericity": "%",                 # ratio (1 = perfect sphere)
+    "SurfaceArea": "cm^2",                         # area of the surface
+    "SurfaceVolumeRatio": "cm^-1",                 # SurfaceArea / MeshVolume
+    "VoxelVolume": "mL",                         # voxel count × voxel spacing
+}

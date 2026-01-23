@@ -1,4 +1,4 @@
-from numpyradiomics.shape_mod import shape
+from numpyradiomics.shape_mod import shape, shape_units
 from numpyradiomics.firstorder_mod import firstorder, firstorder_units
 from numpyradiomics.glcm_mod import glcm
 from numpyradiomics.glszm_mod import glszm

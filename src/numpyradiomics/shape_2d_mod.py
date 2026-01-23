@@ -11,7 +11,7 @@ def shape_2d(input_mask, spacing=(1.0, 1.0)):
     input_mask : np.ndarray
         2D binary mask (non-zero = ROI)
     pixel_spacing : tuple of float
-        Pixel spacing (row_spacing, col_spacing)
+        Pixel spacing in mm (row_spacing, col_spacing)
 
     Returns
     -------
@@ -64,16 +64,30 @@ def shape_2d(input_mask, spacing=(1.0, 1.0)):
     circ = 4 * np.pi * area / (peri**2 + 1e-12)
 
     features = {
-        "Area": area,
-        "Perimeter": peri,
-        "MajorAxisLength": major_axis,
-        "MinorAxisLength": minor_axis,
-        "Eccentricity": ecc,
-        "Solidity": solidity,
-        "Extent": extent,
-        "ConvexArea": convex_area,
-        "EquivalentDiameter": equiv_diam,
-        "Circularity": circ,
+        "Area": 0.01 * area,
+        "Perimeter": 0.1 * peri,
+        "MajorAxisLength": 0.1 * major_axis,
+        "MinorAxisLength": 0.1 * minor_axis,
+        "Eccentricity": 100 * ecc,
+        "Solidity": 100 * solidity,
+        "Extent": 100 * extent,
+        "ConvexArea": 0.01 * convex_area,
+        "EquivalentDiameter": 0.1 * equiv_diam,
+        "Circularity": 100 * circ,
     }
 
     return features
+
+
+shape_2d_units = {
+    "Area": 'cm^2',
+    "Perimeter": 'cm',
+    "MajorAxisLength": 'cm',
+    "MinorAxisLength": 'cm',
+    "Eccentricity": '%',
+    "Solidity": '%',
+    "Extent": '%',
+    "ConvexArea": 'cm^2',
+    "EquivalentDiameter": 'cm',
+    "Circularity": '%',
+}
