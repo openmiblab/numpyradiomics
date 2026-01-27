@@ -13,7 +13,7 @@ from .mod_texture import texture, texture_units
 
 # --- Reference Objects (DRO) ---
 # Namespace access: numpyradiomics.dro.cuboid(...)
-from . import mod_dro as dro
+from . import dro
 
 # define __all__ to control what gets imported with "from numpyradiomics import *"
 __all__ = [
