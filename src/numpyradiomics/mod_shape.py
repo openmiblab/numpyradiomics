@@ -30,46 +30,44 @@ def shape(mask:np.ndarray, spacing=(1.0, 1.0, 1.0), extend=True):
 
     Returns
     -------
-    dict
-        A dictionary containing shape feature names (keys) and their calculated 
-        values (float). 
+        dict: A dictionary containing shape feature names (keys) and their calculated 
+            values (float). 
 
-        For 2D data the following are returned:
-        - **MeshSurface**: Area of the ROI defined by the mesh (marching squares).
-        - **PixelSurface**: Area defined by the count of non-zero pixels.
-        - **Perimeter**: Perimeter length of the ROI mesh.
-        - **PerimeterSurfaceRatio**: Ratio of Perimeter to MeshSurface.
-        - **Sphericity**: Measure of roundness (1.0 is a perfect circle).
-        - **SphericalDisproportion**: Inverse of sphericity.
-        - **MaximumDiameter**: Largest Euclidean distance between contour vertices.
-        - **MajorAxisLength**: Principal axis length derived from image moments.
-        - **MinorAxisLength**: Secondary axis length derived from image moments.
-        - **Elongation**: Ratio of Minor to Major axis length.
+            For 2D data the following are returned:
+                - **MeshSurface**: Area of the ROI defined by the mesh (marching squares).
+                - **PixelSurface**: Area defined by the count of non-zero pixels.
+                - **Perimeter**: Perimeter length of the ROI mesh.
+                - **PerimeterSurfaceRatio**: Ratio of Perimeter to MeshSurface.
+                - **Sphericity**: Measure of roundness (1.0 is a perfect circle).
+                - **SphericalDisproportion**: Inverse of sphericity.
+                - **MaximumDiameter**: Largest Euclidean distance between contour vertices.
+                - **MajorAxisLength**: Principal axis length derived from image moments.
+                - **MinorAxisLength**: Secondary axis length derived from image moments.
+                - **Elongation**: Ratio of Minor to Major axis length.
 
-        For 3D data the following are returned:
-        - **MeshVolume**: Volume calculated from the surface mesh (Divergence theorem).
-        - **VoxelVolume**: Volume calculated by counting voxels multiplied by voxel spacing.
-        - **SurfaceArea**: Total area of the surface mesh.
-        - **SurfaceVolumeRatio**: Ratio of Surface Area to Volume.
-        - **Sphericity**: Measure of roundness (0 to 1), where 1 is a perfect sphere.
-        - **Maximum3DDiameter**: Largest Euclidean distance between vertices on the convex hull.
-        - **Maximum2DDiameterSlice**: Maximum diameter in the axial plane (X-Y).
-        - **Maximum2DDiameterColumn**: Maximum diameter in the coronal plane (Z-X).
-        - **Maximum2DDiameterRow**: Maximum diameter in the sagittal plane (Z-Y).
-        - **MajorAxisLength**: Length of the largest principal axis (PCA).
-        - **MinorAxisLength**: Length of the second largest principal axis (PCA).
-        - **LeastAxisLength**: Length of the smallest principal axis (PCA).
-        - **Elongation**: Ratio of major to minor axis components (sqrt(lambda_minor / lambda_major)).
-        - **Flatness**: Ratio of major to least axis components (sqrt(lambda_least / lambda_major)).
+            For 3D data the following are returned:
+                - **MeshVolume**: Volume calculated from the surface mesh (Divergence theorem).
+                - **VoxelVolume**: Volume calculated by counting voxels multiplied by voxel spacing.
+                - **SurfaceArea**: Total area of the surface mesh.
+                - **SurfaceVolumeRatio**: Ratio of Surface Area to Volume.
+                - **Sphericity**: Measure of roundness (0 to 1), where 1 is a perfect sphere.
+                - **Maximum3DDiameter**: Largest Euclidean distance between vertices on the convex hull.
+                - **Maximum2DDiameterSlice**: Maximum diameter in the axial plane (X-Y).
+                - **Maximum2DDiameterColumn**: Maximum diameter in the coronal plane (Z-X).
+                - **Maximum2DDiameterRow**: Maximum diameter in the sagittal plane (Z-Y).
+                - **MajorAxisLength**: Length of the largest principal axis (PCA).
+                - **MinorAxisLength**: Length of the second largest principal axis (PCA).
+                - **LeastAxisLength**: Length of the smallest principal axis (PCA).
+                - **Elongation**: Ratio of major to minor axis components (sqrt(lambda_minor / lambda_major)).
+                - **Flatness**: Ratio of major to least axis components (sqrt(lambda_least / lambda_major)).
 
-        
-        If `extend=True` (3D only), additional keys include:
-        - **Solidity**: Ratio of region volume to convex hull volume.
-        - **Extent**: Ratio of region volume to bounding box volume.
-        - **MaximumDepth**: Radius of the largest inscribed sphere (Chebyshev radius).
-        - **LongestCaliperDiameter**: Maximum Feret diameter.
-        - **FractionalAnisotropyOfInertia**: Measures how elongated/flat the shape is (0 to 1).
-        - **MomentsOfInertia**: First, Second, and Third moments along principal axes.
+            If `extend=True` (3D only), additional keys include:
+                - **Solidity**: Ratio of region volume to convex hull volume.
+                - **Extent**: Ratio of region volume to bounding box volume.
+                - **MaximumDepth**: Radius of the largest inscribed sphere (Chebyshev radius).
+                - **LongestCaliperDiameter**: Maximum Feret diameter.
+                - **FractionalAnisotropyOfInertia**: Measures how elongated/flat the shape is (0 to 1).
+                - **MomentsOfInertia**: First, Second, and Third moments along principal axes.
 
     
     Raises

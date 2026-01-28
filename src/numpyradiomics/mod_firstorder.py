@@ -18,31 +18,33 @@ def firstorder(image, mask, voxelVolume=1, binWidth=25, voxelArrayShift=0, exten
 
     Returns:
         dict: Dictionary containing first-order feature names and their computed values.
-            - **Energy**: Sum of squared voxel intensities.
-            - **TotalEnergy**: Energy scaled by voxelVolume.
-            - **Entropy**: Histogram-based Shannon entropy.
-            - **Minimum**: Minimum intensity.
-            - **Maximum**: Maximum intensity.
-            - **Mean**: Mean intensity.
-            - **Median**: Median intensity.
-            - **Range**: Maximum - Minimum.
-            - **Variance**: Variance of intensities.
-            - **StandardDeviation**: Standard deviation of intensities.
-            - **Skewness**: Measure of asymmetry of the distribution.
-            - **Kurtosis**: Measure of the "tailedness" of the distribution.
-            - **MeanAbsoluteDeviation**: Mean distance of all intensity values from the Mean.
-            - **RobustMeanAbsoluteDeviation**: Mean distance of intensities (10-90th percentile) from the Mean.
-            - **RootMeanSquared**: Square root of the mean of all the squared intensity values.
-            - **10Percentile**: 10th percentile of intensities.
-            - **90Percentile**: 90th percentile of intensities.
-            - **InterquartileRange**: 75th percentile - 25th percentile.
-            - **Uniformity**: Sum of squared histogram probabilities.
+
+            Base Features:
+                - **Energy**: Sum of squared voxel intensities.
+                - **TotalEnergy**: Energy scaled by voxelVolume.
+                - **Entropy**: Histogram-based Shannon entropy.
+                - **Minimum**: Minimum intensity.
+                - **Maximum**: Maximum intensity.
+                - **Mean**: Mean intensity.
+                - **Median**: Median intensity.
+                - **Range**: Maximum - Minimum.
+                - **Variance**: Variance of intensities.
+                - **StandardDeviation**: Standard deviation of intensities.
+                - **Skewness**: Measure of asymmetry of the distribution.
+                - **Kurtosis**: Measure of the "tailedness" of the distribution.
+                - **MeanAbsoluteDeviation**: Mean distance of all intensity values from the Mean.
+                - **RobustMeanAbsoluteDeviation**: Mean distance of intensities (10-90th percentile) from the Mean.
+                - **RootMeanSquared**: Square root of the mean of all the squared intensity values.
+                - **10Percentile**: 10th percentile of intensities.
+                - **90Percentile**: 90th percentile of intensities.
+                - **InterquartileRange**: 75th percentile - 25th percentile.
+                - **Uniformity**: Sum of squared histogram probabilities.
             
-            *Extended Features (if extend=True):*
-            - **05Percentile**: 5th percentile of intensities.
-            - **95Percentile**: 95th percentile of intensities.
-            - **CoefficientOfVariation**: Standard Deviation / Mean.
-            - **Heterogeneity**: Interquartile Range / Median.
+            Extended Features (if ``extend=True``):
+                - **05Percentile**: 5th percentile of intensities.
+                - **95Percentile**: 95th percentile of intensities.
+                - **CoefficientOfVariation**: Standard Deviation / Mean.
+                - **Heterogeneity**: Interquartile Range / Median.
 
     Example:
         >>> import numpyradiomics as npr
